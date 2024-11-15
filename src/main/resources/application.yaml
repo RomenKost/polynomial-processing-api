@@ -1,0 +1,13 @@
+server:
+  port: 8089
+spring:
+  datasource:
+    url: jdbc:postgresql://postgres:5432/polynomials
+    username: admin
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+    schema: public
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+    validate-on-migrate: true
