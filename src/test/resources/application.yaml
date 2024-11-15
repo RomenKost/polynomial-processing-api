@@ -1,0 +1,10 @@
+spring:
+  datasource:
+    url: jdbc:tc:postgresql:14.7-alpine:///test_database
+    username: username
+    password: password
+    schema: public
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+    validate-on-migrate: true

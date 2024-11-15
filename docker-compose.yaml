@@ -1,0 +1,26 @@
+version: '3.8'
+services:
+  polynomial-processing-api:
+    image: polynomial-processing-api:latest
+    container_name: polynomial-processing-api-container
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - postgres
+    ports:
+      - "8089:8089"
+  postgres:
+    image: postgres:14.7-alpine
+    hostname: postgres
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: polynomials
+    ports:
+      - "5555:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    restart: unless-stopped
+volumes:
+  db-data: {}

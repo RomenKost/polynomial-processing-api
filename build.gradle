@@ -1,0 +1,66 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.3.5'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+group = 'com.kostenko'
+version = '1.0-SNAPSHOT'
+
+ext {
+    flywayVersion = '10.21.0'
+    junitVersion = '5.10.0'
+    lombokVersion = '1.18.32'
+    mockitoVersion = '5.14.2'
+    postgresqlVersion = '42.7.4'
+    springBootVersion = '3.3.5'
+    springRetryVersion = '2.0.10'
+    testcontainersVersion = '1.20.3'
+}
+
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation "org.springframework.boot:spring-boot-starter-data-jpa:${springBootVersion}"
+    implementation "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
+
+    implementation "org.springframework.retry:spring-retry:${springRetryVersion}"
+
+    implementation "org.flywaydb:flyway-database-postgresql:${flywayVersion}"
+    implementation "org.postgresql:postgresql:${postgresqlVersion}"
+
+    annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+    compileOnly "org.projectlombok:lombok:${lombokVersion}"
+
+    testImplementation "org.mockito:mockito-junit-jupiter:${mockitoVersion}"
+
+    testImplementation "org.testcontainers:postgresql:${testcontainersVersion}"
+    testImplementation "org.testcontainers:junit-jupiter:${testcontainersVersion}"
+
+    testImplementation "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
+    testImplementation platform("org.junit:junit-bom:${junitVersion}")
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+jar {
+    manifest {
+        attributes(
+                'Main-Class': 'com.kostenko.polynomial.processing.api.PolynomialProcessingApiApplication'
+        )
+    }
+}
+
+bootJar {
+    setMainClass('com.kostenko.polynomial.processing.api.PolynomialProcessingApiApplication')
+}
